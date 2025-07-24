@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17.5
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Jam76588594
+      POSTGRES_DB: GEMMATEX_CATALOGO
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_container
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=nestorcalle1012@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=Jam76588594
+    ports:
+      - 5050:80
