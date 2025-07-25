@@ -1,17 +1,23 @@
 const boom = require('@hapi/boom');
 
-const getConnection = require('../libs/postgres');
-const pool = require('../libs/postgres.pool');
+/* const getConnection = require('../libs/postgres'); */
+/* const pool = require('../libs/postgres.pool'); */
+const { models } = require('../libs/sequelize');
+
 
 class UserService {
-  constructor() {
+  /* constructor() {
     this.users = [];
     this.pool = pool;
     this.pool.on('error', (err) => console.error(err));
+  } */
+  constructor() {
+    this.users = [];
   }
 
   async create(data) {
-    return data;
+    const newUser = await models.User.create(data);
+    return newUser;
   }
 
 /*   async find() {
@@ -20,24 +26,36 @@ class UserService {
     return rta.rows;
   } */
 
-    async find() {
+/*     async find() {
     const query = 'SELECT * FROM products';
     const rta = await this.pool.query(query);
     return rta.rows;
-  }
+  } */
+    async find() {
+      const rta = await models.User.findAll();
+      return rta;
+    }
 
   async findOne(id) {
-    return { id };
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('User not found');
+    }
+    return user;
   }
 
   async update(id, changes) {
-    return {
-      id,
-      changes,
-    };
+    const user = await models.User.findByPk(id);
+    const rta = await user.update(changes);
+    return rta;
   }
 
   async delete(id) {
+    const user = await models.User.findByPk(id);
+    if (!user) {
+      throw boom.notFound('User not found');
+    }
+    await user.destroy();
     return { id };
   }
 }

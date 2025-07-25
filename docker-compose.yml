@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Jam76588594
-      POSTGRES_DB: GEMMATEX_CATALOGO
+      POSTGRES_DB: GEMMA_CATALOGO
     ports:
       - 5432:5432
     volumes:
