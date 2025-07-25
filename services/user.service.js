@@ -31,6 +31,7 @@ class UserService {
     const rta = await this.pool.query(query);
     return rta.rows;
   } */
+
     async find() {
       const rta = await models.User.findAll();
       return rta;
@@ -45,16 +46,13 @@ class UserService {
   }
 
   async update(id, changes) {
-    const user = await models.User.findByPk(id);
+    const user = await this.findOne(id);
     const rta = await user.update(changes);
     return rta;
   }
 
   async delete(id) {
-    const user = await models.User.findByPk(id);
-    if (!user) {
-      throw boom.notFound('User not found');
-    }
+    const user = await this.findOne(id);
     await user.destroy();
     return { id };
   }
