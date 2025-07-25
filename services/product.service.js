@@ -13,7 +13,7 @@ class ProductsService {
     /* this.generate(); */
   }
 
-  generate() {
+  /* generate() {
     const limit = 100;
     for (let index = 0; index < limit; index++) {
       this.products.push({
@@ -24,7 +24,7 @@ class ProductsService {
         isBlock: faker.datatype.boolean(),
       });
     }
-  }
+  } */
 
   async create(data) {
     /* const newProduct = {
@@ -33,7 +33,8 @@ class ProductsService {
     }a
     this.products.push(newProduct);
     return newProduct; */
-    return data;
+    const newProduct = await models.Product.create(data);
+    return newProduct;
   }
 
  /*  async find() {
@@ -75,7 +76,11 @@ class ProductsService {
       throw boom.conflict('product is block');
     }
     return product; */
-    return id;
+    const product = await models.Product.findByPk(id);
+    if (!product) {
+      throw boom.notFound('product not found');
+    }
+    return product;
   }
 
   async update(id, changes) {
@@ -89,7 +94,9 @@ class ProductsService {
       ...changes
     };
     return this.products[index]; */
-    return { id, changes  };
+    const product = await this.findOne(id);
+    const rta = await product.update(changes);
+    return rta;
   }
 
   async delete(id) {
@@ -98,6 +105,8 @@ class ProductsService {
       throw boom.notFound('product not found');
     }
     this.products.splice(index, 1); */
+    const product = await this.findOne(id);
+    await product.destroy();
     return { id };
   }
 
