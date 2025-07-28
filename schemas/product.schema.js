@@ -27,16 +27,16 @@ module.exports = { createProductSchema, updateProductSchema, getProductSchema }
  */
 const Joi = require('joi');
 
-const id = Joi.string().uuid();
+const id = Joi.number().integer();
 const name = Joi.string().min(3).max(255);
-const slug = Joi.string().alphanum().min(3).max(255);
+const slug = Joi.string().min(3).max(255);
 const shortDescription = Joi.string().allow('', null);
 const description = Joi.string().allow('', null);
 const imageUrl = Joi.string().uri();
 const galleryUrls = Joi.array().items(Joi.string().uri());
 const price = Joi.number().precision(2).min(0);
 const discountPrice = Joi.number().precision(2).min(0).allow(null);
-const sku = Joi.string().alphanum().min(3).max(50);
+const sku = Joi.string().min(3).max(50);
 const stock = Joi.number().integer().min(0);
 const unitOfMeasure = Joi.string().max(50);
 const weight = Joi.number().precision(2).min(0).allow(null);
@@ -81,7 +81,7 @@ const updateProductSchema = Joi.object({
 });
 
 const getProductSchema = Joi.object({
-  id: id.required()
+  id: id.required(),
 });
 
 module.exports = {

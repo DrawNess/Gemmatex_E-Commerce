@@ -1,9 +1,9 @@
-const { faker } = require('@faker-js/faker');
-const boom = require('@hapi/boom');
-
+/* const { faker } = require('@faker-js/faker'); */
 /* const getConnection = require('../libs/postgres'); */
 /* const pool = require('../libs/postgres.pool'); */
 /* const sequelize = require('../libs/sequelize'); */
+
+const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
 class ProductsService {
@@ -68,14 +68,6 @@ class ProductsService {
     }
 
   async findOne(id) {
-    /* const product = this.products.find(item => item.id === id);
-    if (!product) {
-      throw boom.notFound('product not found');
-    }
-    if (product.isBlock) {
-      throw boom.conflict('product is block');
-    }
-    return product; */
     const product = await models.Product.findByPk(id);
     if (!product) {
       throw boom.notFound('product not found');
@@ -109,7 +101,6 @@ class ProductsService {
     await product.destroy();
     return { id };
   }
-
 }
 
 module.exports = ProductsService;
