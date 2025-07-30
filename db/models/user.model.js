@@ -1,3 +1,4 @@
+const { allow } = require('joi');
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const USER_TABLE = 'users';
@@ -20,6 +21,11 @@ const UserSchema = {
   password: {
     allowNull: false,
     type: DataTypes.STRING,
+  },
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: 'customer', // Default role for new users
   },
   createdAt: {
     allowNull: false,

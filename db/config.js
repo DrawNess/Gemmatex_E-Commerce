@@ -1,7 +1,5 @@
 const {config} = require('./../config/config');
 
-// Database connection URI
-// Using encodeURIComponent to handle special characters in username and password
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
