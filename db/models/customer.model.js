@@ -50,19 +50,11 @@ const customerSchema = {
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL',
-  },
-  isActive: {
-    allowNull: false,
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-    field: 'is_active',
-  },
+  }
 };
 class Customer extends Model {
   static associate(models) {
-    Customer.belongsTo(models.User, {
-      as: 'user',
-    });
+    this.belongsTo(models.User, {as: 'user'});
   }
 
   static config(sequelize) {
@@ -74,5 +66,4 @@ class Customer extends Model {
     };
   }
 }
-
 module.exports = { CUSTOMER_TABLE, customerSchema, Customer };

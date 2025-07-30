@@ -6,11 +6,6 @@ const { models } = require('../libs/sequelize');
 
 
 class UserService {
-  /* constructor() {
-    this.users = [];
-    this.pool = pool;
-    this.pool.on('error', (err) => console.error(err));
-  } */
   constructor() {
     this.users = [];
   }
@@ -19,7 +14,6 @@ class UserService {
     const newUser = await models.User.create(data);
     return newUser;
   }
-
 /*   async find() {
     const client = getConnection();
     const rta = client.query('SELECT * FROM public.products');
@@ -32,10 +26,10 @@ class UserService {
     return rta.rows;
   } */
 
-    async find() {
-      const rta = await models.User.findAll();
-      return rta;
-    }
+  async find() {
+    const rta = await models.User.findAll();
+    return rta;
+  }
 
   async findOne(id) {
     const user = await models.User.findByPk(id);

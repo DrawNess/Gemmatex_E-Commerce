@@ -32,6 +32,8 @@ class CustomersService {
   async delete(id) {
     const customer = await this.findOne(id);
     await customer.destroy();
-    return { rta: true, id };
+    return { rta: true};
   }
 }
+
+module.exports = CustomersService;
